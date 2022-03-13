@@ -8,6 +8,8 @@ class Creator {
   String? email;
   String? country;
   String? company;
+  int? netWorth;
+  int? followers;
 
   Creator(
       {this.id,
@@ -19,6 +21,8 @@ class Creator {
       this.email,
         this.country,
         this.company,
+        this.netWorth,
+        this.followers
       });
 
   Map<String, dynamic>? jsonMap;
@@ -33,7 +37,9 @@ class Creator {
       avatar: json['avatar'],
       email: json['email'],
       country: json['country'],
-      company: json['company']
+      company: json['company'],
+        netWorth: json['netWorth'],
+      followers: json['followers']
     );
   }
 
@@ -47,7 +53,9 @@ class Creator {
       'avatar': avatar,
       'email': email,
       'country':country,
-      'company': company
+      'company': company,
+      'netWorth': netWorth,
+      'followers': followers
     };
     return map;
   }

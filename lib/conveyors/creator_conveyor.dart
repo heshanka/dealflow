@@ -35,4 +35,15 @@ class CreatorConveyor extends Conveyor<Creator>{
         ? returnList
         : null;
   }
+
+  Future<List<Creator>?> filterCreatorList(String filterTerm) async {
+    Response? response = await sendGet(params: {"filter": filterTerm});
+    List<Creator> returnList = [];
+    for (var item in json.decode(response!.body)) {
+      returnList.add(Creator.fromJson(item as Map<String, dynamic>));
+    }
+    return response != null && response.statusCode == 200
+        ? returnList
+        : null;
+  }
 }
