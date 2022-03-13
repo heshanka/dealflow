@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 
@@ -97,29 +98,6 @@ abstract class Conveyor<T> {
       //return null;
   }
 
-/*  Future<T?>  sendGetOne({
-    String  endpointPath = "",
-    @required int  id,
-    Map<String , String >? headers,
-    Map<String , dynamic>? params,
-    Map<String , dynamic>? queries,
-    Duration? timeout,
-  }) async {
-    Map<String , dynamic>? jsonMap = await (Executor().execute(fun2: Conveyor.sendRequestIsolate, arg1: this, arg2: [
-      HttpMethod.GET,
-      "$endpointPath/$id",
-      headers ?? await RequestHelper.getAuthHeader(),
-      null,
-      params,
-      queries,
-      timeout
-    ]) as FutureOr<Map<String, dynamic>?>);
-    if (jsonMap != null && jsonMap['statuscode'] == 200)
-      return createObject(jsonMap['data']);
-    else
-      return null;
-  }*/
-
   Future<dynamic>  sendPost({
     String  endpointPath = "",
     dynamic requestBody,
@@ -145,50 +123,18 @@ abstract class Conveyor<T> {
     return jsonMap;
   }
 
-  /*Future<T?>  sendPatch({
-    String  endpointPath = "",
-    var requestBody,
-    Map<String , String >? headers,
-    String? guid,
-    Map<String , dynamic>? queries,
-    Duration? timeout,
-  }) async {
-    Map<String , dynamic>? jsonMap = await (Executor().execute(fun2: Conveyor.sendRequestIsolate, arg1: this, arg2: [
-      HttpMethod.PATCH,
-      endpointPath,
-      headers ?? await RequestHelper.getPostHeaders(),
-      requestBody,
-      {"guid", guid},
-      queries,
-      timeout
-    ]) as FutureOr<Map<String, dynamic>?>);
-    if (jsonMap != null && jsonMap['statuscode'] == 200)
-      return createObject(jsonMap['data']);
-    else
-      return null;
-  }
+  static FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
-  Future<bool >  sendDelete({
-    String  endpointPath = "",
-    Map<String , String >? headers,
-    String? guid,
-    Map<String , dynamic>? queries,
-    Duration? timeout,
-  }) async {
-    Map<String , dynamic>? jsonMap = await (Executor().execute(fun2: Conveyor.sendRequestIsolate, arg1: this, arg2: [
-      HttpMethod.GET,
-      endpointPath,
-      headers ?? await RequestHelper.getAuthHeader(),
-      null,
-      {"guid", guid},
-      queries,
-      timeout
-    ]) as FutureOr<Map<String, dynamic>?>);
-    if (jsonMap != null && jsonMap['statuscode'] == 200)
-      return true;
-    else
-      return false;
-  }*/
+  static Future<Map<String, String>> getAuthHeader() async {
+    String? accessToken = await secureStorage.read(key: "accessToken");
+    if (accessToken != null && accessToken != "") {
+      return {
+        "Authorization": "bearer $accessToken",
+      };
+    } else {
+      return {};
+    }
+  }
 
   static void printRequest(
       String  url,

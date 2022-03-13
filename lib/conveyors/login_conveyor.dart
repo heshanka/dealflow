@@ -10,9 +10,10 @@ static LoginConveyor getInstance() {
 return instance ?? LoginConveyor();
 }
 
-Future<Future> login(String username, String password) async {
+Future login(String username, String password) async {
   String _username = username;
   Future<dynamic> responseAuth = sendPost(
+    headers: await Conveyor.getAuthHeader(),
       endpointPath: 'login',
         requestBody: json.encode({
           'grant_type': 'password',

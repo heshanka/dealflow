@@ -1,8 +1,11 @@
 
 import 'dart:async';
 
+import 'package:dealflow_coding_assignment/conveyors/conveyor.dart';
 import 'package:dealflow_coding_assignment/conveyors/login_conveyor.dart';
+import 'package:dealflow_coding_assignment/models/login_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginController with ChangeNotifier {
   bool _isSuccess = false;
@@ -13,11 +16,6 @@ class LoginController with ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-  void changeLoginStatus(bool status) {
-    isUserLoggedIn = status;
-    notifyListeners();
-  }
-
   bool isEmail(String str) {
     if (str == null || str.trim().isEmpty) return false;
     RegExp emailRegex = RegExp(
@@ -26,12 +24,12 @@ class LoginController with ChangeNotifier {
     return emailRegex.hasMatch(str.trim().toLowerCase());
   }
 
-
   Future loginRequest(username, password, remember) async {
     _isLoading = true;
     notifyListeners();
 
-    var _loginAuth = await LoginConveyor.getInstance().login(username, password);
+    LoginAuth _loginAuth = await LoginConveyor.getInstance().login(username, password);
+    await Conveyor.secureStorage.write(key: "accessToken", value: _loginAuth.accessToken);
 
     if (_loginAuth != null) {
       _isSuccess = true;
