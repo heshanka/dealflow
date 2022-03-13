@@ -87,6 +87,7 @@ abstract class Conveyor<T> {
       endpointPath,
       headers, //?? await RequestHelper.getAuthHeader(),
         Map(),
+      params: params,
       queries: queries,
       timeout: timeout
     ) as Response;
