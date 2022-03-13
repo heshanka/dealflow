@@ -1,6 +1,7 @@
 import 'package:dealflow_coding_assignment/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/src/provider.dart';
 
 import 'home.dart';
 
@@ -12,12 +13,12 @@ class LoginView extends StatefulWidget {
 }
 
 class LoginViewState extends State<LoginView> {
-  TextEditingController usernameController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
-  FocusNode usernameNode = new FocusNode();
-  FocusNode passwordNode = new FocusNode();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  FocusNode usernameNode = FocusNode();
+  FocusNode passwordNode = FocusNode();
   bool rememberMe = false;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -44,7 +45,7 @@ class LoginViewState extends State<LoginView> {
                 child: CircleAvatar(
                   backgroundColor: Color(0xffebcbf4),
                   child: IconButton(
-                    icon: Icon(Icons.arrow_back_rounded, color: Color(0xff710193),),
+                    icon: const Icon(Icons.arrow_back_rounded, color: Color(0xff710193),),
                     onPressed: () { Navigator.pop(context);},
                   ),
                 ),
@@ -87,7 +88,7 @@ class LoginViewState extends State<LoginView> {
                           controller: passwordController,
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.done,
-                          //obscureText: !model.showPassword,
+                          obscureText: !context.watch<LoginController>().showPassword,
                           focusNode: passwordNode,
                           onFieldSubmitted: (value) async {
                             await loginMethod(context, loginController);
@@ -97,16 +98,20 @@ class LoginViewState extends State<LoginView> {
                               Icons.lock,
                             ),
                             labelText: 'Password',
-                            suffix: InkWell(borderRadius: BorderRadius.circular(30),
-                              child: true//model.showPassword
-                                  ? const Icon(Icons.remove_red_eye,)
-                                  : const Icon(Icons.remove_red_eye,),
+                            suffix: context.watch<LoginController>().showPassword
+                                ? InkWell(
+                              child: const Icon(
+                                Icons.visibility,),
                               onTap: () {
-                                //model.updateShowPassword();
+                                context.read<LoginController>().updateShowPassword(value: false);
                               },
+                            )
+                                : InkWell(
+                              child: const Icon(Icons.visibility_off,),
+                              onTap: ()=> context.read<LoginController>().updateShowPassword(value: true),
+                            ),
                             ),),
                         ),
-                  ),
                   Padding(
                     padding: EdgeInsets.only(top: 15.0, bottom: 16.0),
                     child: InkWell(
@@ -152,8 +157,6 @@ class LoginViewState extends State<LoginView> {
     });
     await model.loginRequest(usernameController.text, _password, rememberMe);
     if (model.isSuccess) {
-      print('SUCCESS!!');
-      //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => WidgetsScreen()), (route) => false);
     } else {
       showSnackBar();
     }
