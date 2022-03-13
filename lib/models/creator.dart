@@ -10,6 +10,7 @@ class Creator {
   String? company;
   int? netWorth;
   int? followers;
+  String? bio;
 
   Creator(
       {this.id,
@@ -19,28 +20,28 @@ class Creator {
       this.username,
       this.avatar,
       this.email,
-        this.country,
-        this.company,
-        this.netWorth,
-        this.followers
-      });
+      this.country,
+      this.company,
+      this.netWorth,
+      this.followers,
+      this.bio});
 
   Map<String, dynamic>? jsonMap;
 
   factory Creator.fromJson(Map<String, dynamic> json) {
     return Creator(
-      id: json['id'],
-      createdAt: json['createdAt'],
-      name: json['name'],
-      lastName: json['lastname'],
-      username: json['username'],
-      avatar: json['avatar'],
-      email: json['email'],
-      country: json['country'],
-      company: json['company'],
+        id: json['id'],
+        createdAt: json['createdAt'],
+        name: json['name'],
+        lastName: json['lastname'],
+        username: json['username'],
+        avatar: json['avatar'],
+        email: json['email'],
+        country: json['country'],
+        company: json['company'],
         netWorth: json['netWorth'],
-      followers: json['followers']
-    );
+        followers: json['followers'],
+        bio: json['bio']);
   }
 
   Map<String, dynamic> toJson() {
@@ -52,10 +53,11 @@ class Creator {
       'username': username,
       'avatar': avatar,
       'email': email,
-      'country':country,
+      'country': country,
       'company': company,
       'netWorth': netWorth,
-      'followers': followers
+      'followers': followers,
+      'bio': bio,
     };
     return map;
   }
