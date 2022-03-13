@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 
-import '../conveyor.dart';
+import 'conveyor.dart';
 import '../models/creator.dart';
 
 class CreatorConveyor extends Conveyor<Creator>{

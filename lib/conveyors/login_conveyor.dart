@@ -1,6 +1,6 @@
 
 import 'dart:convert';
-import '../conveyor.dart';
+import 'conveyor.dart';
 
 class LoginConveyor extends Conveyor{
 
