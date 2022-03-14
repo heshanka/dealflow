@@ -29,3 +29,5 @@ A provider per view is used in this project where necessary;
 The conveyor.dart class is written for request handling with the help of the http package.
 
 https://pub.dev/packages/http
+
+![](https://github.com/heshanka/dealflow/master/df.gif)
