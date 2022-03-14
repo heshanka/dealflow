@@ -1,5 +1,8 @@
 
 import 'dart:convert';
+import 'package:dealflow_coding_assignment/models/login_auth.dart';
+import 'package:http/http.dart';
+
 import 'conveyor.dart';
 
 class LoginConveyor extends Conveyor{
@@ -10,9 +13,9 @@ static LoginConveyor getInstance() {
 return instance ?? LoginConveyor();
 }
 
-Future login(String username, String password) async {
+Future<LoginAuth?> login(String username, String password) async {
   String _username = username;
-  Future<dynamic> responseAuth = sendPost(
+  Response responseAuth = await sendPost(
     headers: await Conveyor.getAuthHeader(),
       endpointPath: 'login',
         requestBody: json.encode({
@@ -20,11 +23,11 @@ Future login(String username, String password) async {
           'username': _username,
           'password': password,
         }));
-  return responseAuth;
-/*  if (responseAuth != null*//* && responseAuth['statuscode'] == 200*//*) {
-    return LoginAuth.fromJson(responseAuth as Future<dynamic>);
+
+  if (responseAuth.statusCode < 400) {
+    return  LoginAuth.fromJson(jsonDecode(responseAuth.body));
   }
-  return null;*/
+  return null;
 }
 
   @override

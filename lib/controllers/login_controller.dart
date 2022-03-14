@@ -5,7 +5,6 @@ import 'package:dealflow_coding_assignment/conveyors/conveyor.dart';
 import 'package:dealflow_coding_assignment/conveyors/login_conveyor.dart';
 import 'package:dealflow_coding_assignment/models/login_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginController with ChangeNotifier {
   bool _isSuccess = false;
@@ -28,8 +27,8 @@ class LoginController with ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    LoginAuth _loginAuth = await LoginConveyor.getInstance().login(username, password);
-    await Conveyor.secureStorage.write(key: "accessToken", value: _loginAuth.accessToken);
+    LoginAuth? _loginAuth = await LoginConveyor.getInstance().login(username, password);
+    await Conveyor.secureStorage.write(key: "accessToken", value: _loginAuth?.accessToken);
 
     if (_loginAuth != null) {
       _isSuccess = true;
