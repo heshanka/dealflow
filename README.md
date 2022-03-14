@@ -1,16 +1,31 @@
-# dealflow_coding_assignment
+# dealflow_coding_challenge
 
-A new Flutter project.
+A mini-project to list creators and their details.
 
-## Getting Started
+Consists of screens: Sign Up, Log in, Creators screen, Creator details screen.
 
-This project is a starting point for a Flutter application.
+### Mock API
 
-A few resources to get you started if this is your first Flutter project:
+Mockapi.io was used in this project.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+https://mockapi.io/projects/6228f84dbe12fc45389314bf is the mock API for this app.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Since there is no real API integrated, there are limitations. 
+
+Please note:
+
+  - The /login endpoint returns a statusCode of 201 rather than 200 on a successful request.
+  - Entering details in sign up screen and hitting 'sign up' does not create a new user with the provided information, but rather generates a new user with mock data.
+  - The images used in the app are random images from unsplash.com
+
+### State management
+
+The state management technique used in the project is Provider (https://pub.dev/packages/provider).
+
+A provider per view is used in this project where necessary;
+
+### Request handling
+
+The conveyor.dart class is written for request handling with the help of the http package.
+
+https://pub.dev/packages/http
