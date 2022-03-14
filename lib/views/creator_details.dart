@@ -40,9 +40,9 @@ class CreatorDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              color: const Color(0xffebcbf4),
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 2 / 5,
+              decoration: const BoxDecoration(color: Color(0xffebcbf4), borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20))),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
