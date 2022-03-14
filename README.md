@@ -30,4 +30,4 @@ The conveyor.dart class is written for request handling with the help of the htt
 
 https://pub.dev/packages/http
 
-![](https://github.com/heshanka/dealflow/master/df.gif)
+![](https://github.com/heshanka/dealflow/blob/master/df.gif)
